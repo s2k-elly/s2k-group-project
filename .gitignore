@@ -1,0 +1,29 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Environment-dependent path to Maven home directory
+/mavenHomeManager.xml
+# IntelliJ IDEA specific
+.idea/
+*.iml
+out/
+# Build directories
+target/
+build/
+# Compiled class files
+*.class
+# Logs
+*.log
+# Temporary files
+*.tmp
+*.swp
+*.bak
+# OS junk
+.DS_Store
+Thumbs.db
+# Maven
+.mvn/
+dependency-reduced-pom.xml
+# Gradle
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
