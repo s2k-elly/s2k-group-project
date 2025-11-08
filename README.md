@@ -13,6 +13,6 @@ Repository for the S2K group code.
 - UserService
 - CartService
 
-### Theodoros Kaloudis module:
+### Theodoros Kaloudis modules:
 - MainUI
 - StoreExceptions
