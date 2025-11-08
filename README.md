@@ -1,18 +1,18 @@
 # videogame-store
 Repository for the S2K group code.
 
-### Manos Katramados modules:
+### Manos K. modules:
 - User
 - Customer
 - Owner
 - Videogame
 - ShoppingCart
 
-### Skaraki Eleni Maria modules:
+### Elly S. modules:
 - GameService
 - UserService
 - CartService
 
-### Theodoros Kaloudis modules:
+### Theodoros K. modules:
 - MainUI
 - StoreExceptions
