@@ -7,7 +7,7 @@ VER 1.1.0 (CURRENT):
     > Made Register and Login disappear if the user is already logged in.
     > Updated exception name for UserException to better refer to scope of exceptions.
 
-VER 1.0.0 (CURRENT):
+VER 1.0.0:
 + Finishing touches.
     > GameService's showDetail() now properly displays details as was originally intended.
     > Fixed the filtering logic in GameService's findByTitle().
