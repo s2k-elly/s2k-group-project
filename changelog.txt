@@ -1,4 +1,12 @@
-VER 0.1.0 (CURRENT):
+VER 1.0.0 (CURRENT):
++ Finishing touches.
+    > GameService's showDetail() now properly displays details as was originally intended.
+    > Fixed the filtering logic in GameService's findByTitle().
+    > Added showGameInfo() in MainUI.java with ChatGPT.
+    > Updated checkout in MainUI to better simulate payment with ChatGPT.
+    > Finished documentation of UML changes.
+
+VER 0.1.0:
 + Continued with polishing (process done manually as ChatGPT struggled to follow more detailed lines of questioning while maintaining expected logic).
     > Fixed error-handling sometimes double-printing messages.
     > Fixed error-handling sometimes printing contradictory messages.

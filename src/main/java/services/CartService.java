@@ -44,7 +44,7 @@ public class CartService {
     public void checkout(Customer customer) {
         List<Videogame> items = customer.getCart().getItems();
         if (items.isEmpty()) {
-            System.out.println("Cart is empty.");
+            System.out.println("❌ Cart is empty.");
             return;
         }
 
@@ -53,7 +53,7 @@ public class CartService {
             System.out.println("- " + vg.getTitle() + " ($" + vg.getPrice() + ")");
         }
         total(customer);
-        System.out.println("Payment simulated. Thank you!");
+        System.out.println("✔ Payment successful. Thank you!");
 
         items.clear(); // empty cart after checkout
     }

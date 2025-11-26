@@ -79,8 +79,9 @@ public class GameService {
 
     public List<Videogame> findByTitle(String vgTitle) { // RETURN TYPE CHANGED FROM UML's VOID TO LIST<> FOR MAINUI FUNCTIONALITY
         List<Videogame> result = new ArrayList<>();
+        String vgTitleQ = vgTitle.toLowerCase();
         for (Videogame vg : games) {
-            if (vg.getTitle().equalsIgnoreCase(vgTitle)) {
+            if (vg.getTitle().toLowerCase().contains(vgTitleQ)) {
                 result.add(vg);
             }
         }
@@ -104,6 +105,8 @@ public class GameService {
     public void showDetail(Videogame vg) {
         System.out.println("=== Game Details ===");
         System.out.println(vg);
+        System.out.println("Description:");
+        System.out.println(vg.getDescription());
         System.out.println("===================");
     }
 

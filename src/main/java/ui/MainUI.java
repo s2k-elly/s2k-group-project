@@ -82,7 +82,64 @@ public class MainUI {
             System.out.println("--- SEARCH RESULTS ---");
             gameService.findByTitle(q).forEach(System.out::println);
         }
+        System.out.print("\nTo view a specific game, provide the ID (leave empty to skip): ");
+        showGameInfo();
     }
+
+    // ========================
+    // INDIVIDUAL GAME MENU
+    // ========================
+
+    private void showGameInfo() {
+        while (true) {
+            String q = scanner.nextLine().trim();
+
+            if (q.isBlank()) {
+                return;
+            }
+
+            int id;
+            try {
+                id = Integer.parseInt(q);
+            } catch (NumberFormatException e) {
+                System.out.print("❌ Invalid ID. Try again: ");
+                continue;
+            }
+
+            Videogame vg = gameService.findByID(id);
+            if (vg == null) {
+                System.out.print("❌ Game not found. Try again: ");
+                continue;
+            }
+            gameService.showDetail(vg);
+
+            while (true) {
+                System.out.println("\n--- GAME OPTIONS ---");
+                System.out.println("1) Add to cart");
+                System.out.println("0) Back");
+
+                System.out.print("Choose: ");
+                String choice = scanner.nextLine().trim();
+
+                switch (choice) {
+                    case "1" -> {
+                        if (currentUser instanceof Customer c) {
+                            cartService.addCart(c, vg);
+                            System.out.println("✔ Added to cart.");
+                        } else {
+                            System.out.println("❌ Only customers can use a cart.");
+                        }
+                    }
+                    case "0" -> {
+                        return;
+                    }
+                    default -> System.out.println("❌ Invalid choice.");
+                }
+            }
+        }
+    }
+
+
 
     // ========================
     // USER REGISTRATION
@@ -167,6 +224,46 @@ public class MainUI {
                     );
                 }
                 case 4 -> {
+                    if (c.getCart().getItems().isEmpty()) {
+                        System.out.println("Cart is empty.");
+                        break;
+                    }
+
+                    System.out.println("\n=== CHECKOUT ===");
+                    System.out.println("This is a simulation. Do NOT enter real payment details.");
+
+                    // ===== NAME =====
+                    String name;
+                    while (true) {
+                        name = readString("Cardholder name: ");
+                        if (!name.isBlank()) {
+                            break;
+                        }
+                        System.out.println("❌ Name cannot be empty.");
+                    }
+
+                    // ===== CARD NUMBER =====
+                    String card;
+                    while (true) {
+                        card = readString("Card number (15–19 digits): ");
+
+                        // check digits only
+                        if (!card.matches("\\d+")) {
+                            System.out.println("❌ Card number must contain digits only.");
+                            continue;
+                        }
+
+                        // check length
+                        if (card.length() < 15 || card.length() > 19) {
+                            System.out.println("❌ Card number must be between 15–19 digits.");
+                            continue;
+                        }
+
+                        break;
+                    }
+
+                    // ===== CONFIRMATION =====
+                    System.out.println("\nProcessing payment...");
                     try {
                         cartService.checkout(c);
                     } catch (StoreExceptions.OutOfStockException e) {
