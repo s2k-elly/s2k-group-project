@@ -4,8 +4,6 @@ import models.*;
 import services.*;
 import exceptions.*;
 
-
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -36,21 +34,21 @@ public class MainUI {
             int choice = readInt("Choose an option: ");
 
             switch (choice) {
-                case 1 -> listGames();
+                case 1 -> showGamesMenu();
                 case 2 -> register();
                 case 3 -> login();
                 case 4 -> logout();
-                case 5 -> cartMenu();
+                case 5 -> showCartMenu();
                 case 6 -> {
                     if (currentUser instanceof Owner owner) {
                         ownerMenu();
                     }
                     else {
-                        System.out.println("Invalid option. Try again.");
+                        System.out.println("❌ Invalid option. Try again.");
                     }
                 }
                 case 0 -> exit = true;
-                default -> System.out.println("Invalid option. Try again.");
+                default -> System.out.println("❌ Invalid option. Try again.");
             }
         }
 
@@ -60,7 +58,7 @@ public class MainUI {
     private void showMainMenu() {
         System.out.println("\n--- MAIN MENU ---");
         System.out.println("1) Browse games");
-        System.out.println("2) Register (customer)");
+        System.out.println("2) Register (become a customer)");
         System.out.println("3) Login");
         System.out.println("4) Logout");
         System.out.println("5) Cart & Checkout");
@@ -72,9 +70,10 @@ public class MainUI {
     }
 
     // ========================
-    // GAME LISTING
+    // GAME LISTING (ACCIDENTALLY LISTED TWICE IN THE UML,
+    // FUNCTIONALLY THE SAME AS WHAT "listGames()" WAS MEANT TO DO)
     // ========================
-    private void listGames() {
+    private void showGamesMenu() {
         System.out.println("\n--- AVAILABLE GAMES ---");
         gameService.listAll().forEach(System.out::println);
 
@@ -125,7 +124,7 @@ public class MainUI {
     // ========================
     // CART MENU
     // ========================
-    private void cartMenu() {
+    private void showCartMenu() {
         if (!(currentUser instanceof Customer c)) {
             System.out.println("❌ You must be logged in as a CUSTOMER to access a cart.");
             return;
@@ -181,7 +180,7 @@ public class MainUI {
     }
 
     // ========================
-    // OWNER MENU
+    // OWNER MENU (METHOD WRAPPER NOT IN THE UML, ADDED FOR MODULARITY)
     // ========================
     private void ownerMenu() {
         if (!(currentUser instanceof Owner owner)) {
@@ -203,7 +202,7 @@ public class MainUI {
             try {
                 switch (choice) {
                     case 1 -> defineGameAdd(owner);
-                    case 2 -> removeGame(owner);
+                    case 2 -> defineGameRemove(owner);
                     case 3 -> updatePrice(owner);
                     case 4 -> updateStock(owner);
                     case 0 -> back = true;
@@ -217,7 +216,19 @@ public class MainUI {
 
     private void defineGameAdd(Owner owner) {
         System.out.println("\n--- Add New Game ---");
-        String title = readLine("Title: ");
+        String desc = null;
+        String title = null;
+        while (true) {
+            try {
+                title = readLine("Title: ");
+                if (title.trim().isEmpty()) {
+                    throw new NullPointerException("❌ Title cannot be empty.");
+                }
+                break;
+            } catch (NullPointerException e) {
+                System.out.println(e.getMessage());
+            }
+        }
         Videogame.Genre genre = null;
         while (true) {
             try {
@@ -227,7 +238,17 @@ public class MainUI {
                 System.out.println("❌ Genre does not exist in our list. Please enter another genre.");
             }
         }
-        String desc = readLine("Description: ");
+        while (true) {
+            try {
+                desc = readLine("Description: ");
+                if (desc.trim().isEmpty()) {
+                    throw new NullPointerException("❌ Description cannot be empty.");
+                }
+                break;
+            } catch (NullPointerException e) {
+                System.out.println(e.getMessage());
+            }
+        }
         double price = readDouble("Price: ");
         int stock = readInt("Initial stock: ");
 
@@ -237,24 +258,21 @@ public class MainUI {
         System.out.println("✔ Added game: " + game.getTitle());
     }
 
-    private void removeGame(Owner owner) {
+    private void defineGameRemove(Owner owner) { // FORGOTTEN TO BE IMPLEMENTED INTO ORIGINAL UML
         int id = readInt("Game ID to remove: ");
         gameService.removeGame(owner, gameService.findByID(id));
-        System.out.println("✔ Removed (if existed).");
     }
 
     private void updatePrice(Owner owner) {
         int id = readInt("Game ID: ");
         double p = readDouble("New price: ");
         gameService.updatePrice(owner, id, p);
-        System.out.println("✔ Price updated.");
     }
 
     private void updateStock(Owner owner) {
         int id = readInt("Game ID: ");
         int stock = readInt("New stock: ");
         gameService.updateStock(owner, id, stock);
-        System.out.println("✔ Stock updated.");
     }
 
     // ========================
@@ -272,7 +290,7 @@ public class MainUI {
         }
     }
 
-    private double readDouble(String prompt) {
+    private double readDouble(String prompt) { // FORGOTTEN TO BE IMPLEMENTED INTO ORIGINAL UML
         while (true) {
             try {
                 System.out.print(prompt);
@@ -282,22 +300,6 @@ public class MainUI {
                 System.out.println("❌ Invalid decimal number. Try again.");
             }
         }
-    }
-
-    private <T extends Enum<T>> T readEnum(String prompt, Class<T> enumClass) {
-        while (true) {
-            System.out.print(prompt + " (" + String.join("/", enumNames(enumClass)) + "): ");
-            String input = scanner.nextLine().trim().toUpperCase();
-            try {
-                return Enum.valueOf(enumClass, input);
-            } catch (IllegalArgumentException e) {
-                System.out.println("❌ Invalid option. Try again.");
-            }
-        }
-    }
-
-    private String[] enumNames(Class<? extends Enum<?>> e) {
-        return Arrays.stream(e.getEnumConstants()).map(Enum::name).toArray(String[]::new);
     }
 
     private String readLine(String prompt) {
