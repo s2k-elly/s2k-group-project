@@ -1,0 +1,32 @@
+VER 1.0.0 (CURRENT):
++ Finishing touches.
+    > GameService's showDetail() now properly displays details as was originally intended.
+    > Fixed the filtering logic in GameService's findByTitle().
+    > Added showGameInfo() in MainUI.java with ChatGPT.
+    > Updated checkout in MainUI to better simulate payment with ChatGPT.
+    > Finished documentation of UML changes.
+
+VER 0.1.0:
++ Continued with polishing (process done manually as ChatGPT struggled to follow more detailed lines of questioning while maintaining expected logic).
+    > Fixed error-handling sometimes double-printing messages.
+    > Fixed error-handling sometimes printing contradictory messages.
+    > Made case 6 of showMainMenu() not display unless currentUser is an Owner, and pretend to not exist if attempted to be accessed outside of an Owner instance.
+    > Documented methods that were not present in the Class UML but, in the end, proved to be important for the maintenance of modularity.
+    > Fixed a few non-stylized error/success messages to be more uniform with the rest.
+    > Made defineGameAdd() in MainUI.java perform while loops to catch errors in regard to empty/null Titles and Descriptions, and make the I/O process less annoying for the user if a mistake is made.
+
+VER 0.0.1:
++ Manually fixed ChatGPT mistakes.
+    > Two unasked for, unused methods were removed.
+    > A few naming conventions were fixed in accordance to Class UML and service package naming accuracy.
+    > A few methods asking for incorrect parameters were adjusted to adhere with those in the services package.
+    > Made the toString() in User and Videogame more user-friendly.
+- Stubs and drivers removed, as they were outdated in function and naming, and code can now run well enough to be debugged through main args and start().
+
+VER 0.0.0 (NOT PUSHED TO GITHUB):
++ All modules implemented after being tested by their respective teammate with stubs and drivers to ensure full isolated functionality of each source file.
++ Code collected via Discord fileshare as multiple members faced issues with pushing code to the GitHub repository.
+    > KATRAMADOS --> models/
+    > KALOUDIS --> ui/ & exceptions/
+    > SKARAKI --> services/ & changelog & editing of merged code
++ Code predominantly AI generated via ChatGPT, with extensive guidance from notes and Class UML adherence.
