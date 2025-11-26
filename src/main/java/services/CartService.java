@@ -11,26 +11,16 @@ import java.util.List;
 public class CartService {
 
     public void addCart(Customer customer, Videogame vg) {
-        if (vg == null) {
-            System.out.println("addCart: customer or game is null.");
-            return;
-        }
         customer.getCart().getItems().add(vg);
         System.out.println("Added '" + vg.getTitle() + "' to " + customer.getUsername() + "'s cart.");
     }
 
     public void removeCart(Customer customer, Videogame vg) {
         if (vg == null) {
-            System.out.println("Game does not exist in ");
+            System.out.println("❌ Game does not exist in cart.");
             return;
         }
         boolean removed = customer.getCart().getItems().remove(vg);
-        if (removed) {
-            System.out.println("removeCart: removed '" + vg.getTitle() +
-                    "' from cart of " + customer.getUsername());
-        } else {
-            System.out.println("removeCart: game not in cart.");
-        }
     }
 
     public double total(Customer customer) {

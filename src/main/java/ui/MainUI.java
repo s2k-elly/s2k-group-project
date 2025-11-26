@@ -35,9 +35,28 @@ public class MainUI {
 
             switch (choice) {
                 case 1 -> showGamesMenu();
-                case 2 -> register();
-                case 3 -> login();
-                case 4 -> logout();
+                case 2 -> {
+                    if (currentUser == null) {
+                        register();
+                    } else {
+                        System.out.println("❌ Invalid option. Try again.");
+                    }
+                }
+                case 3 -> {
+                    if (currentUser == null) {
+                        login();
+                    } else {
+                        System.out.println("❌ Invalid option. Try again.");
+                    }
+                }
+                case 4 -> {
+                    if (currentUser != null) {
+                        logout();
+                    }
+                    else {
+                        System.out.println("❌ Invalid option. Try again.");
+                    }
+                }
                 case 5 -> showCartMenu();
                 case 6 -> {
                     if (currentUser instanceof Owner owner) {
@@ -58,11 +77,15 @@ public class MainUI {
     private void showMainMenu() {
         System.out.println("\n--- MAIN MENU ---");
         System.out.println("1) Browse games");
-        System.out.println("2) Register (become a customer)");
-        System.out.println("3) Login");
-        System.out.println("4) Logout");
+        if (currentUser == null) {
+            System.out.println("2) Register (become a customer)");
+            System.out.println("3) Login");
+        }
+        if (currentUser != null) {
+            System.out.println("4) Logout");
+        }
         System.out.println("5) Cart & Checkout");
-        if (currentUser instanceof Owner) {
+        if (currentUser instanceof Owner o) {
             System.out.println("6) Admin options");   // only visible to Owners
         }
         System.out.println("0) Exit");
@@ -139,18 +162,28 @@ public class MainUI {
         }
     }
 
-
-
     // ========================
     // USER REGISTRATION
     // ========================
     private void register() {
         System.out.println("\n--- REGISTER NEW CUSTOMER ---");
-        String u = readString("Username: ");
-        String p = readString("Password: ");
-
-        User newUser = userService.register(u, p);
-        System.out.println("Successfully registered as: " + newUser.getUsername());
+        while (true) {
+            try {
+                String u = readString("Username: ");
+                String p = readString("Password: ");
+                if (p.isBlank() || u.isBlank()) {
+                    throw new StoreExceptions.InvalidInputException("❌ Username and/or Password cannot be empty.");
+                }
+                for (User user : userService.getUsers() ) {
+                    if (user.getUsername().equals(u)) {
+                        throw new StoreExceptions.UserException("❌ Username already in use.");
+                    }
+                }
+                User newUser = userService.register(u, p);
+                System.out.println("✔ Successfully registered as: " + newUser.getUsername());
+                break;
+            } catch (StoreExceptions.InvalidInputException | StoreExceptions.UserException e) { System.out.println(e.getMessage()); }
+        }
     }
 
     // ========================
@@ -191,9 +224,8 @@ public class MainUI {
         while (!back) {
             System.out.println("\n--- CART MENU ---");
             System.out.println("1) View cart");
-            System.out.println("2) Add item");
-            System.out.println("3) Remove item");
-            System.out.println("4) Checkout");
+            System.out.println("2) Remove item");
+            System.out.println("3) Checkout");
             System.out.println("0) Back");
 
             int choice = readInt("Choose: ");
@@ -204,16 +236,6 @@ public class MainUI {
                     System.out.printf("Total: %.2f%n", cartService.total(c));
                 }
                 case 2 -> {
-                    int id = readInt("Enter game ID to add: ");
-                    gameService.optionalID(id).ifPresentOrElse(
-                            g -> {
-                                cartService.addCart(c, g);
-                                System.out.println("✔ Added to cart: " + g.getTitle());
-                            },
-                            () -> System.out.println("❌ Game not found.")
-                    );
-                }
-                case 3 -> {
                     int id = readInt("Enter game ID to remove: ");
                     gameService.optionalID(id).ifPresentOrElse(
                             g -> {
@@ -223,7 +245,7 @@ public class MainUI {
                             () -> System.out.println("❌ Game not found.")
                     );
                 }
-                case 4 -> {
+                case 3 -> {
                     if (c.getCart().getItems().isEmpty()) {
                         System.out.println("Cart is empty.");
                         break;
@@ -255,7 +277,7 @@ public class MainUI {
 
                         // check length
                         if (card.length() < 15 || card.length() > 19) {
-                            System.out.println("❌ Card number must be between 15–19 digits.");
+                            System.out.println("❌ Card number must be between 15-19 digits.");
                             continue;
                         }
 

@@ -38,4 +38,14 @@ public class ShoppingCart {
     public Customer getCustomer() {
         return customer;
     }
+
+    @Override
+    public String toString() {
+        String toString = "";
+        for (Videogame vg : items) {
+            toString = toString + "\n" + vg.toString();
+        }
+        return toString;
+    }
+
 }

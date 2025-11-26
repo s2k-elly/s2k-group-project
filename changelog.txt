@@ -1,3 +1,12 @@
+VER 1.1.0 (CURRENT):
++ Debugging.
+    > Fixed software-terminating error when trying to register with an empty username and/or password.
+    > Fixed software-terminating error when trying to register with a username that already exists.
+    > Removed double and/or contradicting messages from service and ui packages.
+    > Made ShoppingCart toString() user-friendly.
+    > Made Register and Login disappear if the user is already logged in.
+    > Updated exception name for UserException to better refer to scope of exceptions.
+
 VER 1.0.0 (CURRENT):
 + Finishing touches.
     > GameService's showDetail() now properly displays details as was originally intended.
