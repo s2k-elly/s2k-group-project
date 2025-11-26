@@ -77,7 +77,7 @@ public class GameService {
         return null;
     }
 
-    public List<Videogame> findByTitle(String vgTitle) {
+    public List<Videogame> findByTitle(String vgTitle) { // RETURN TYPE CHANGED FROM UML's VOID TO LIST<> FOR MAINUI FUNCTIONALITY
         List<Videogame> result = new ArrayList<>();
         for (Videogame vg : games) {
             if (vg.getTitle().equalsIgnoreCase(vgTitle)) {
@@ -115,7 +115,7 @@ public class GameService {
         return new ArrayList<>(games);
     }
 
-    public Optional<Videogame> optionalID(int vgID) { // ADDED POST-UML
+    public Optional<Videogame> optionalID(int vgID) { // ADDED POST-UML FOR MAINUI FUNCTIONALITY
         for (Videogame vg : games) {
             if (vg.getID() == vgID) return Optional.of(vg);
         }

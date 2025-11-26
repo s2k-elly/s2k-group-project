@@ -77,7 +77,7 @@ public class MainUI {
         System.out.println("\n--- AVAILABLE GAMES ---");
         gameService.listAll().forEach(System.out::println);
 
-        String q = readLine("\nSearch by title (leave empty to skip): ");
+        String q = readString("\nSearch by title (leave empty to skip): ");
         if (!q.isBlank()) {
             System.out.println("--- SEARCH RESULTS ---");
             gameService.findByTitle(q).forEach(System.out::println);
@@ -89,8 +89,8 @@ public class MainUI {
     // ========================
     private void register() {
         System.out.println("\n--- REGISTER NEW CUSTOMER ---");
-        String u = readLine("Username: ");
-        String p = readLine("Password: ");
+        String u = readString("Username: ");
+        String p = readString("Password: ");
 
         User newUser = userService.register(u, p);
         System.out.println("Successfully registered as: " + newUser.getUsername());
@@ -101,8 +101,8 @@ public class MainUI {
     // ========================
     private void login() {
         System.out.println("\n--- LOGIN ---");
-        String u = readLine("Username: ");
-        String p = readLine("Password: ");
+        String u = readString("Username: ");
+        String p = readString("Password: ");
         Optional<User> opt = userService.login(u, p);
         if (opt.isPresent()) {
             currentUser = opt.get();
@@ -220,7 +220,7 @@ public class MainUI {
         String title = null;
         while (true) {
             try {
-                title = readLine("Title: ");
+                title = readString("Title: ");
                 if (title.trim().isEmpty()) {
                     throw new NullPointerException("❌ Title cannot be empty.");
                 }
@@ -232,7 +232,7 @@ public class MainUI {
         Videogame.Genre genre = null;
         while (true) {
             try {
-                genre = Videogame.Genre.valueOf(readLine("Genre: ").toUpperCase().replace(" ", "_"));
+                genre = Videogame.Genre.valueOf(readString("Genre: ").toUpperCase().replace(" ", "_"));
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println("❌ Genre does not exist in our list. Please enter another genre.");
@@ -240,7 +240,7 @@ public class MainUI {
         }
         while (true) {
             try {
-                desc = readLine("Description: ");
+                desc = readString("Description: ");
                 if (desc.trim().isEmpty()) {
                     throw new NullPointerException("❌ Description cannot be empty.");
                 }
@@ -302,7 +302,7 @@ public class MainUI {
         }
     }
 
-    private String readLine(String prompt) {
+    private String readString(String prompt) {
         System.out.print(prompt);
         return scanner.nextLine().trim();
     }
