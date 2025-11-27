@@ -41,15 +41,8 @@ public class UserService {
             System.out.println("register: username and password must be non-empty.");
             return null;
         }
-
-        if (findByUsername(user) != null) {
-            System.out.println("register: username already exists.");
-            return null;
-        }
-
         Customer newCustomer = new Customer(user, pass);
         users.add(newCustomer);
-        System.out.println("Registered new customer: " + user);
 
         return newCustomer;
     }
@@ -135,6 +128,10 @@ public class UserService {
         }
         System.out.println("No user with id " + id);
         return null;
+    }
+
+    public List<User> getUsers() {
+        return users;
     }
 
     // HELPER (NOT IN UML)

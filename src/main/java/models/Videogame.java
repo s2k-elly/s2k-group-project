@@ -55,6 +55,6 @@ public class Videogame {
 
     @Override
     public String toString() {
-        return "'" + title + "' (ID: " + id + "). Price: " + price + "|| In Stock: " + stock;
+        return "'" + title + "' (ID: " + id + "). Price: " + price + " || In Stock: " + stock;
     }
 }

@@ -14,8 +14,8 @@ public final class StoreExceptions {
         public OutOfStockException(String msg) { super(msg); }
     }
 
-    public static class UserNotFoundException extends RuntimeException {
-        public UserNotFoundException(String msg) { super(msg); }
+    public static class UserException extends RuntimeException { // CHANGED NAME FROM UML TO BETTER FIT SCOPE OF EXCEPTIONS
+        public UserException(String msg) { super(msg); }
     }
 
     public static class InvalidInputException extends RuntimeException {

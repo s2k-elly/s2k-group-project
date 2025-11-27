@@ -20,11 +20,6 @@ public abstract class User {
 
     // Constructor used by subclasses
     public User(String username, String password, Role role) {
-        if (username == null || username.isBlank())
-            throw new IllegalArgumentException("Username cannot be empty.");
-        if (password == null || password.isBlank())
-            throw new IllegalArgumentException("Password cannot be empty.");
-
         this.id = counter++;
         this.username = username;
         this.password = password;
