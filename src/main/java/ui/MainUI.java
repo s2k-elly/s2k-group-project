@@ -26,7 +26,7 @@ public class MainUI {
 
     /** Main loop */
     private void start() {
-        System.out.println("=== Welcome to Videogame Store ===");
+        System.out.println("=== Welcome to S2K's Videogame Store ===");
 
         boolean exit = false;
         while (!exit) {
@@ -78,13 +78,13 @@ public class MainUI {
         System.out.println("\n--- MAIN MENU ---");
         System.out.println("1) Browse games");
         if (currentUser == null) {
-            System.out.println("2) Register (become a customer)");
-            System.out.println("3) Login");
+            System.out.println("2) Register (become a customer)"); // only visible to guests
+            System.out.println("3) Login"); // only visible to guests
         }
         if (currentUser != null) {
-            System.out.println("4) Logout");
+            System.out.println("4) Logout"); // only visible to users who are logged in
         }
-        System.out.println("5) Cart & Checkout");
+        System.out.println("5) Cart & Checkout"); // only visible to customers
         if (currentUser instanceof Owner o) {
             System.out.println("6) Admin options");   // only visible to Owners
         }
