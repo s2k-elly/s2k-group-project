@@ -38,7 +38,7 @@ public class GameService {
 
     public void removeGame(User user, Videogame vg) {
         if (games.remove(vg)) {
-            System.out.println("[✓] Game removed: " + vg.getTitle());
+            System.out.println("[OK] Game removed: " + vg.getTitle());
         } else {
             System.out.println("[X] Game not found in list.");
         }
@@ -51,7 +51,7 @@ public class GameService {
             return;
         }
         game.setPrice(newPrice);
-        System.out.println("[✓] Price updated for '" + game.getTitle() + "' -> " + newPrice);
+        System.out.println("[OK] Price updated for '" + game.getTitle() + "' -> " + newPrice);
     }
 
     public void updateStock(User user, int gameID, int newStock) {
@@ -65,7 +65,7 @@ public class GameService {
             return;
         }
         game.setStock(newStock);
-        System.out.println("[✓] Stock updated for '" + game.getTitle() + "' -> " + newStock);
+        System.out.println("[OK] Stock updated for '" + game.getTitle() + "' -> " + newStock);
     }
 
     // These "find/search" are void in the UML, so here they just print results.
