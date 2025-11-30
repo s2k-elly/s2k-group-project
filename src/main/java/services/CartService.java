@@ -43,7 +43,7 @@ public class CartService {
             System.out.println("- " + vg.getTitle() + " ($" + vg.getPrice() + ")");
         }
         total(customer);
-        System.out.println("[✓] Payment successful. Thank you!");
+        System.out.println("[OK] Payment successful. Thank you!");
 
         items.clear(); // empty cart after checkout
     }
