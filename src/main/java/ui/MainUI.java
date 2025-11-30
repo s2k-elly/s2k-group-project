@@ -148,7 +148,7 @@ public class MainUI {
                     case "1" -> {
                         if (currentUser instanceof Customer c) {
                             cartService.addCart(c, vg);
-                            System.out.println("[OK] Added to cart.");
+                            System.out.println("[✓] Added to cart.");
                         } else {
                             System.out.println("[X] Only customers can use a cart.");
                         }
@@ -180,7 +180,7 @@ public class MainUI {
                     }
                 }
                 User newUser = userService.register(u, p);
-                System.out.println("[OK] Successfully registered as: " + newUser.getUsername());
+                System.out.println("[✓] Successfully registered as: " + newUser.getUsername());
                 break;
             } catch (StoreExceptions.InvalidInputException | StoreExceptions.UserException e) { System.out.println(e.getMessage()); }
         }
@@ -240,7 +240,7 @@ public class MainUI {
                     gameService.optionalID(id).ifPresentOrElse(
                             g -> {
                                 cartService.removeCart(c, g);
-                                System.out.println("[OK] Removed from cart: " + g.getTitle());
+                                System.out.println("[✓] Removed from cart: " + g.getTitle());
                             },
                             () -> System.out.println("[X] Game not found.")
                     );
@@ -374,7 +374,7 @@ public class MainUI {
         Videogame game = new Videogame(title, genre, desc, price, stock);
         gameService.addGame(owner, game);
 
-        System.out.println("[OK] Added game: " + game.getTitle());
+        System.out.println("[✓] Added game: " + game.getTitle());
     }
 
     private void defineGameRemove(Owner owner) { // FORGOTTEN TO BE IMPLEMENTED INTO ORIGINAL UML
