@@ -39,14 +39,14 @@ public class MainUI {
                     if (currentUser == null) {
                         register();
                     } else {
-                        System.out.println("❌ Invalid option. Try again.");
+                        System.out.println("[X] Invalid option. Try again.");
                     }
                 }
                 case 3 -> {
                     if (currentUser == null) {
                         login();
                     } else {
-                        System.out.println("❌ Invalid option. Try again.");
+                        System.out.println("[X] Invalid option. Try again.");
                     }
                 }
                 case 4 -> {
@@ -54,7 +54,7 @@ public class MainUI {
                         logout();
                     }
                     else {
-                        System.out.println("❌ Invalid option. Try again.");
+                        System.out.println("[X] Invalid option. Try again.");
                     }
                 }
                 case 5 -> showCartMenu();
@@ -63,11 +63,11 @@ public class MainUI {
                         ownerMenu();
                     }
                     else {
-                        System.out.println("❌ Invalid option. Try again.");
+                        System.out.println("[X] Invalid option. Try again.");
                     }
                 }
                 case 0 -> exit = true;
-                default -> System.out.println("❌ Invalid option. Try again.");
+                default -> System.out.println("[X] Invalid option. Try again.");
             }
         }
 
@@ -125,13 +125,13 @@ public class MainUI {
             try {
                 id = Integer.parseInt(q);
             } catch (NumberFormatException e) {
-                System.out.print("❌ Invalid ID. Try again: ");
+                System.out.print("[X] Invalid ID. Try again: ");
                 continue;
             }
 
             Videogame vg = gameService.findByID(id);
             if (vg == null) {
-                System.out.print("❌ Game not found. Try again: ");
+                System.out.print("[X] Game not found. Try again: ");
                 continue;
             }
             gameService.showDetail(vg);
@@ -148,15 +148,15 @@ public class MainUI {
                     case "1" -> {
                         if (currentUser instanceof Customer c) {
                             cartService.addCart(c, vg);
-                            System.out.println("✔ Added to cart.");
+                            System.out.println("[✓] Added to cart.");
                         } else {
-                            System.out.println("❌ Only customers can use a cart.");
+                            System.out.println("[X] Only customers can use a cart.");
                         }
                     }
                     case "0" -> {
                         return;
                     }
-                    default -> System.out.println("❌ Invalid choice.");
+                    default -> System.out.println("[X] Invalid choice.");
                 }
             }
         }
@@ -172,15 +172,15 @@ public class MainUI {
                 String u = readString("Username: ");
                 String p = readString("Password: ");
                 if (p.isBlank() || u.isBlank()) {
-                    throw new StoreExceptions.InvalidInputException("❌ Username and/or Password cannot be empty.");
+                    throw new StoreExceptions.InvalidInputException("[X] Username and/or Password cannot be empty.");
                 }
                 for (User user : userService.getUsers() ) {
                     if (user.getUsername().equals(u)) {
-                        throw new StoreExceptions.UserException("❌ Username already in use.");
+                        throw new StoreExceptions.UserException("[X] Username already in use.");
                     }
                 }
                 User newUser = userService.register(u, p);
-                System.out.println("✔ Successfully registered as: " + newUser.getUsername());
+                System.out.println("[✓] Successfully registered as: " + newUser.getUsername());
                 break;
             } catch (StoreExceptions.InvalidInputException | StoreExceptions.UserException e) { System.out.println(e.getMessage()); }
         }
@@ -198,7 +198,7 @@ public class MainUI {
             currentUser = opt.get();
             System.out.println("Welcome, " + currentUser.getUsername() + "!");
         } else {
-            System.out.println("❌ Incorrect username or password.");
+            System.out.println("[X] Incorrect username or password.");
         }
     }
 
@@ -216,7 +216,7 @@ public class MainUI {
     // ========================
     private void showCartMenu() {
         if (!(currentUser instanceof Customer c)) {
-            System.out.println("❌ You must be logged in as a CUSTOMER to access a cart.");
+            System.out.println("[X] You must be logged in as a CUSTOMER to access a cart.");
             return;
         }
 
@@ -240,9 +240,9 @@ public class MainUI {
                     gameService.optionalID(id).ifPresentOrElse(
                             g -> {
                                 cartService.removeCart(c, g);
-                                System.out.println("✔ Removed from cart: " + g.getTitle());
+                                System.out.println("[✓] Removed from cart: " + g.getTitle());
                             },
-                            () -> System.out.println("❌ Game not found.")
+                            () -> System.out.println("[X] Game not found.")
                     );
                 }
                 case 3 -> {
@@ -261,7 +261,7 @@ public class MainUI {
                         if (!name.isBlank()) {
                             break;
                         }
-                        System.out.println("❌ Name cannot be empty.");
+                        System.out.println("[X] Name cannot be empty.");
                     }
 
                     // ===== CARD NUMBER =====
@@ -271,13 +271,13 @@ public class MainUI {
 
                         // check digits only
                         if (!card.matches("\\d+")) {
-                            System.out.println("❌ Card number must contain digits only.");
+                            System.out.println("[X] Card number must contain digits only.");
                             continue;
                         }
 
                         // check length
                         if (card.length() < 15 || card.length() > 19) {
-                            System.out.println("❌ Card number must be between 15-19 digits.");
+                            System.out.println("[X] Card number must be between 15-19 digits.");
                             continue;
                         }
 
@@ -289,7 +289,7 @@ public class MainUI {
                     try {
                         cartService.checkout(c);
                     } catch (StoreExceptions.OutOfStockException e) {
-                        System.out.println("❌ Checkout failed: game is out of stock!");
+                        System.out.println("[X] Checkout failed: game is out of stock!");
                     }
                 }
                 case 0 -> back = true;
@@ -303,7 +303,7 @@ public class MainUI {
     // ========================
     private void ownerMenu() {
         if (!(currentUser instanceof Owner owner)) {
-            System.out.println("❌ Owner privileges required.");
+            System.out.println("[X] Owner privileges required.");
             return;
         }
 
@@ -328,7 +328,7 @@ public class MainUI {
                     default -> System.out.println("Invalid option.");
                 }
             } catch (Exception e) {
-                System.out.println("❌ Error: " + e.getMessage());
+                System.out.println("[X] Error: " + e.getMessage());
             }
         }
     }
@@ -341,7 +341,7 @@ public class MainUI {
             try {
                 title = readString("Title: ");
                 if (title.trim().isEmpty()) {
-                    throw new NullPointerException("❌ Title cannot be empty.");
+                    throw new NullPointerException("[X] Title cannot be empty.");
                 }
                 break;
             } catch (NullPointerException e) {
@@ -354,14 +354,14 @@ public class MainUI {
                 genre = Videogame.Genre.valueOf(readString("Genre: ").toUpperCase().replace(" ", "_"));
                 break;
             } catch (IllegalArgumentException e) {
-                System.out.println("❌ Genre does not exist in our list. Please enter another genre.");
+                System.out.println("[X] Genre does not exist in our list. Please enter another genre.");
             }
         }
         while (true) {
             try {
                 desc = readString("Description: ");
                 if (desc.trim().isEmpty()) {
-                    throw new NullPointerException("❌ Description cannot be empty.");
+                    throw new NullPointerException("[X] Description cannot be empty.");
                 }
                 break;
             } catch (NullPointerException e) {
@@ -374,7 +374,7 @@ public class MainUI {
         Videogame game = new Videogame(title, genre, desc, price, stock);
         gameService.addGame(owner, game);
 
-        System.out.println("✔ Added game: " + game.getTitle());
+        System.out.println("[✓] Added game: " + game.getTitle());
     }
 
     private void defineGameRemove(Owner owner) { // FORGOTTEN TO BE IMPLEMENTED INTO ORIGINAL UML
@@ -404,7 +404,7 @@ public class MainUI {
                 String s = scanner.nextLine().trim();
                 return Integer.parseInt(s);
             } catch (NumberFormatException e) {
-                System.out.println("❌ Invalid number. Try again.");
+                System.out.println("[X] Invalid number. Try again.");
             }
         }
     }
@@ -416,7 +416,7 @@ public class MainUI {
                 String s = scanner.nextLine().trim();
                 return Double.parseDouble(s);
             } catch (NumberFormatException e) {
-                System.out.println("❌ Invalid decimal number. Try again.");
+                System.out.println("[X] Invalid decimal number. Try again.");
             }
         }
     }

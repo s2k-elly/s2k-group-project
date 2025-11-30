@@ -17,7 +17,7 @@ public class CartService {
 
     public void removeCart(Customer customer, Videogame vg) {
         if (vg == null) {
-            System.out.println("❌ Game does not exist in cart.");
+            System.out.println("[X] Game does not exist in cart.");
             return;
         }
         boolean removed = customer.getCart().getItems().remove(vg);
@@ -34,7 +34,7 @@ public class CartService {
     public void checkout(Customer customer) {
         List<Videogame> items = customer.getCart().getItems();
         if (items.isEmpty()) {
-            System.out.println("❌ Cart is empty.");
+            System.out.println("[X] Cart is empty.");
             return;
         }
 
@@ -43,7 +43,7 @@ public class CartService {
             System.out.println("- " + vg.getTitle() + " ($" + vg.getPrice() + ")");
         }
         total(customer);
-        System.out.println("✔ Payment successful. Thank you!");
+        System.out.println("[✓] Payment successful. Thank you!");
 
         items.clear(); // empty cart after checkout
     }

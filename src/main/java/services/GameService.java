@@ -38,34 +38,34 @@ public class GameService {
 
     public void removeGame(User user, Videogame vg) {
         if (games.remove(vg)) {
-            System.out.println("✔ Game removed: " + vg.getTitle());
+            System.out.println("[✓] Game removed: " + vg.getTitle());
         } else {
-            System.out.println("❌ Game not found in list.");
+            System.out.println("[X] Game not found in list.");
         }
     }
 
     public void updatePrice(User user, int gameID, double newPrice) {
         Videogame game = findByID(gameID);
         if (game == null) {
-            System.out.println("❌ Game not found (ID = " + gameID + ")");
+            System.out.println("[X] Game not found (ID = " + gameID + ")");
             return;
         }
         game.setPrice(newPrice);
-        System.out.println("✔ Price updated for '" + game.getTitle() + "' -> " + newPrice);
+        System.out.println("[✓] Price updated for '" + game.getTitle() + "' -> " + newPrice);
     }
 
     public void updateStock(User user, int gameID, int newStock) {
         if (isOwner(user)) {
-            System.out.println("❌ Only owners can update stock.");
+            System.out.println("[X] Only owners can update stock.");
             return;
         }
         Videogame game = findByID(gameID);
         if (game == null) {
-            System.out.println("❌ Game not found (ID = " + gameID + ")");
+            System.out.println("[X] Game not found (ID = " + gameID + ")");
             return;
         }
         game.setStock(newStock);
-        System.out.println("✔ Stock updated for '" + game.getTitle() + "' -> " + newStock);
+        System.out.println("[✓] Stock updated for '" + game.getTitle() + "' -> " + newStock);
     }
 
     // These "find/search" are void in the UML, so here they just print results.
@@ -98,7 +98,7 @@ public class GameService {
             }
         }
         if (!found) {
-            System.out.println("❌ No games found in this genre.");
+            System.out.println("[X] No games found in this genre.");
         }
     }
 

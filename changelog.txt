@@ -1,4 +1,7 @@
-VER 1.1.1 (CURRENT):
+VER 1.1.2 (CURRENT):
++ Changed emojis used in error and success messages to terminal (unicode) friendly icons.
+
+VER 1.1.1:
 + Changed MainUI to say "S2K's Videogame Store" instead of "Videogame Store" in menu.
 
 VER 1.1.0:
