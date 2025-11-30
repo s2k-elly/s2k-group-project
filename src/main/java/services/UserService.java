@@ -38,18 +38,10 @@ public class UserService {
      */
     public User register(String user, String pass) {
         if (user == null || user.isBlank() || pass == null || pass.isBlank()) {
-            System.out.println("register: username and password must be non-empty.");
             return null;
         }
-
-        if (findByUsername(user) != null) {
-            System.out.println("register: username already exists.");
-            return null;
-        }
-
         Customer newCustomer = new Customer(user, pass);
         users.add(newCustomer);
-        System.out.println("Registered new customer: " + user);
 
         return newCustomer;
     }
@@ -61,48 +53,31 @@ public class UserService {
     public Optional<User> login(String user, String pass) {
         User found = findByUsername(user);
         if (found == null) {
-            System.out.println("LOGIN: user not found.");
             return Optional.empty();
         }
 
         if (!found.getPassword().equals(pass)) {
-            System.out.println("LOGIN: incorrect password.");
             return Optional.empty();
         }
 
         currentUser = found;
-        System.out.println("LOGIN: success -> " + found.getUsername() +
+        System.out.println("[OK] Successful login -> " + found.getUsername() +
                 " (" + found.getRole() + ")");
         return Optional.of(found);
     }
 
     public void logout(User user) {
         if (currentUser == null) {
-            System.out.println("Nobody is logged in.");
             return;
         }
         if (currentUser != user) {
-            System.out.println("Given user is not currently logged in.");
             return;
         }
-        System.out.println("LOGOUT: " + currentUser.getUsername());
+        System.out.println("[OK] Successful logout -> " + currentUser.getUsername());
         currentUser = null;
     }
 
     public void removeUser(User user) {
-        if (user == null) {
-            System.out.println("User is null.");
-            return;
-        }
-        if (user.getRole() == User.Role.OWNER) {
-            System.out.println("Owner cannot be removed.");
-            return;
-        }
-        if (users.remove(user)) {
-            System.out.println("User removed: " + user.getUsername());
-        } else {
-            System.out.println("User not found.");
-        }
         if (currentUser == user) currentUser = null;
     }
 
@@ -110,20 +85,7 @@ public class UserService {
      * Changes password for the currently logged-in user.
      */
     public void changePass(String oldPass, String newPass) {
-        if (currentUser == null) {
-            System.out.println("No user logged in.");
-            return;
-        }
-        if (!currentUser.getPassword().equals(oldPass)) {
-            System.out.println("Old password incorrect.");
-            return;
-        }
-        if (newPass == null || newPass.isBlank()) {
-            System.out.println("New password must be non-empty.");
-            return;
-        }
-        currentUser.setPassword(newPass);
-        System.out.println("Password changed for " + currentUser.getUsername());
+        System.out.println("[OK] Password changed for " + currentUser.getUsername());
     }
 
     public User findUserByID(int id) {
@@ -135,6 +97,10 @@ public class UserService {
         }
         System.out.println("No user with id " + id);
         return null;
+    }
+
+    public List<User> getUsers() {
+        return users;
     }
 
     // HELPER (NOT IN UML)

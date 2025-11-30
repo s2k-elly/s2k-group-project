@@ -11,26 +11,16 @@ import java.util.List;
 public class CartService {
 
     public void addCart(Customer customer, Videogame vg) {
-        if (vg == null) {
-            System.out.println("addCart: customer or game is null.");
-            return;
-        }
         customer.getCart().getItems().add(vg);
         System.out.println("Added '" + vg.getTitle() + "' to " + customer.getUsername() + "'s cart.");
     }
 
     public void removeCart(Customer customer, Videogame vg) {
         if (vg == null) {
-            System.out.println("Game does not exist in ");
+            System.out.println("[X] Game does not exist in cart.");
             return;
         }
         boolean removed = customer.getCart().getItems().remove(vg);
-        if (removed) {
-            System.out.println("removeCart: removed '" + vg.getTitle() +
-                    "' from cart of " + customer.getUsername());
-        } else {
-            System.out.println("removeCart: game not in cart.");
-        }
     }
 
     public double total(Customer customer) {
@@ -44,7 +34,7 @@ public class CartService {
     public void checkout(Customer customer) {
         List<Videogame> items = customer.getCart().getItems();
         if (items.isEmpty()) {
-            System.out.println("❌ Cart is empty.");
+            System.out.println("[X] Cart is empty.");
             return;
         }
 
@@ -53,7 +43,7 @@ public class CartService {
             System.out.println("- " + vg.getTitle() + " ($" + vg.getPrice() + ")");
         }
         total(customer);
-        System.out.println("✔ Payment successful. Thank you!");
+        System.out.println("[OK] Payment successful. Thank you!");
 
         items.clear(); // empty cart after checkout
     }
