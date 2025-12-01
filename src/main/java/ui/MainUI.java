@@ -267,7 +267,7 @@ public class MainUI {
                     // ===== CARD NUMBER =====
                     String card;
                     while (true) {
-                        card = readString("Card number (15–19 digits): ");
+                        card = readString("Card number (15-19 digits): ");
 
                         // check digits only
                         if (!card.matches("\\d+")) {
