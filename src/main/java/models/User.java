@@ -1,9 +1,12 @@
 package models;
 
-/**
- * Base User class for the store.
+/*
+  Base User class for the store.
  */
-public abstract class User {
+
+import java.io.Serializable;
+
+public abstract class User implements Serializable {
 
     // simple auto-incrementing ID for users
     private static int counter = 1;

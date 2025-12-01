@@ -1,11 +1,14 @@
 package models;
 
-/**
- * Videogame model class.
- * This holds all info the store needs (title, genre, price, stock).
- * ID system follows the same logic as users auto increment and simple.
+/*
+  Videogame model class.
+  This holds all info the store needs (title, genre, price, stock).
+  ID system follows the same logic as users auto increment and simple.
  */
-public class Videogame {
+
+import java.io.Serializable;
+
+public class Videogame implements Serializable {
 
     private static int counter = 1;
 

@@ -2,8 +2,9 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public class ShoppingCart {
+public class ShoppingCart implements Serializable {
 
     // ==========================
     // Fields

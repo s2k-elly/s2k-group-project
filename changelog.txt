@@ -1,4 +1,8 @@
-VER 1.1.2 (CURRENT):
+VER 1.1.3 (CURRENT):
++ Re-implemented serialization for Class UML adherence.
++ Updated .gitignore (curiously, IntelliJ chose to place META-INF within src/main/java instead of out/).
+
+VER 1.1.2:
 + Changed emojis used in error and success messages to terminal (unicode) friendly icons.
 
 VER 1.1.1:

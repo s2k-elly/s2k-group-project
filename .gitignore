@@ -27,3 +27,5 @@ dependency-reduced-pom.xml
 # Gradle
 .gradle/
 !gradle/wrapper/gradle-wrapper.jar
+# META-INF
+src/main/java/META-INF/
