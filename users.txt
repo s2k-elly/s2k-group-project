@@ -1,0 +1,2 @@
+owner;owner123;OWNER
+customer;customer123;CUSTOMER
