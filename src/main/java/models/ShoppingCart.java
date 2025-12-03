@@ -39,7 +39,11 @@ public class ShoppingCart implements Serializable {
     public Customer getCustomer() {
         return customer;
     }
-
+    
+    // ==========================
+    // toString() 
+    // ==========================
+    
     @Override
     public String toString() {
         String toString = "";
