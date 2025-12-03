@@ -9,17 +9,16 @@ public class ShoppingCart implements Serializable {
     // ==========================
     // Fields
     // ==========================
-
-    // The list of games currently in the cart
+// [Katramados] ChatGPT assisted, holds all games currently in the cart, Finalized Nov. 30th
     private final List<Videogame> items;
 
-    // The customer who owns this cart
+ // [Katramados] ChatGPT assisted, stores which Customer owns this cart, Finalized Nov. 30th
     private final Customer customer;
 
     // ==========================
     // Constructor
     // ==========================
-
+// [Katramados], ensures the cart cannot exist without a Customer, returns initialized empty cart, Finalized Nov. 30th
     public ShoppingCart(Customer customer) {
         if (customer == null) {
             throw new IllegalArgumentException("ShoppingCart must belong to a Customer.");
@@ -31,11 +30,11 @@ public class ShoppingCart implements Serializable {
     // ==========================
     // Getters
     // ==========================
-
+// [Katramados], returns list of Videogame items currently in cart, Finalized Nov. 30th
     public List<Videogame> getItems() {
         return items;
     }
-
+// [Katramados], returns owning Customer reference, Finalized Nov. 30th
     public Customer getCustomer() {
         return customer;
     }
@@ -43,7 +42,7 @@ public class ShoppingCart implements Serializable {
     // ==========================
     // toString() 
     // ==========================
-    
+// [Katramados], builds a readable list of all games in the cart, returns formatted string, Finalized Nov. 30th
     @Override
     public String toString() {
         String toString = "";
