@@ -1,4 +1,9 @@
-VER 1.1.3 (CURRENT):
+VER 1.2.0 (CURRENT):
++ Kaloudis and Katramados commented on their code.
++ Kaloudis added save/load feature.
+    > Skaraki added registerOwner in UserService.java to ensure correct save/load, tested login and registration use cases.
+
+VER 1.1.3:
 + Re-implemented serialization for Class UML adherence.
 + Updated .gitignore (curiously, IntelliJ chose to place META-INF within src/main/java instead of out/).
 
