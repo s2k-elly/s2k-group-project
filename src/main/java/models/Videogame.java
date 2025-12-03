@@ -9,7 +9,7 @@ package models;
 import java.io.Serializable;
 
 public class Videogame implements Serializable {
-
+// [Katramados] ChatGPT assisted, auto-increment game ID, Finalized Nov. 30th
     private static int counter = 1;
 
     private final int id;
@@ -29,7 +29,7 @@ public class Videogame implements Serializable {
         MMO,
         SANDBOX
     }
-
+// [Katramados] Constructor sets all fields (no validation here), Finalized Nov. 30th
     public Videogame(String title, Genre genre, String description, double price, int stock) {
         this.id = counter++;
         this.title = title;
@@ -38,9 +38,9 @@ public class Videogame implements Serializable {
         this.price = price;
         this.stock = stock;
     }
-
+// [Katramados] Returns unique game ID, Finalized Nov. 30th
     public int getID() { return id; }
-
+// [Katramados] Basic getters/setters for fields, Finalized Nov. 30th
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
 
@@ -55,7 +55,7 @@ public class Videogame implements Serializable {
 
     public int getStock() { return stock; }
     public void setStock(int stock) { this.stock = stock; }
-
+// [Katramados] String output for catalog listings, Finalized Nov. 30th
     @Override
     public String toString() {
         return "'" + title + "' (ID: " + id + "). Price: " + price + " || In Stock: " + stock;
