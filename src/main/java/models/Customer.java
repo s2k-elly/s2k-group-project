@@ -7,7 +7,7 @@ package models;
  */
 
 
-
+// [Katramados] ChatGPT assisted, Customer has cart and CUSTOMER role, finalized Nov. 30th
 public class Customer extends User {
 
     private final ShoppingCart cart;
