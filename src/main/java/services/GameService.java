@@ -68,7 +68,7 @@ public class GameService {
         System.out.println("[OK] Stock updated for '" + game.getTitle() + "' -> " + newStock);
     }
 
-    // These "find/search" are void in the UML, so here they just print results.
+    // [Skaraki] ChatGPT assisted. Accepts int id. Returns either the videogame associated with the id or null. Finalized Nov. 30th.
 
     public Videogame findByID(int vgID) {
         for (Videogame vg : games) {
@@ -77,6 +77,7 @@ public class GameService {
         return null;
     }
 
+    // [Skaraki] ChatGPT assisted. Accepts title string, returns videogames with string in their title. Empty if nothing matches. Finalized Nov. 30th.
     public List<Videogame> findByTitle(String vgTitle) { // RETURN TYPE CHANGED FROM UML's VOID TO LIST<> FOR MAINUI FUNCTIONALITY
         List<Videogame> result = new ArrayList<>();
         String vgTitleQ = vgTitle.toLowerCase();
@@ -88,6 +89,7 @@ public class GameService {
         return result;
     }
 
+    // [Skaraki] ChatGPT assisted. Accepts genre enum genre, prints videogames of said genre. Finalized Nov. 30th.
     public void searchByGenre(Videogame.Genre genre) {
         System.out.println("searchByGenre: " + genre);
         boolean found = false;
@@ -102,6 +104,7 @@ public class GameService {
         }
     }
 
+    // [Skaraki] ChatGPT assisted. Accepts videogame object. Prints all game info. Finalized Nov. 30th.
     public void showDetail(Videogame vg) {
         System.out.println("=== Game Details ===");
         System.out.println(vg);
@@ -110,14 +113,17 @@ public class GameService {
         System.out.println("===================");
     }
 
+    // [Skaraki] ChatGPT assisted. Accepts user object, checks if owner. Finalized Nov. 30th.
     private boolean isOwner(User user) {
         return user == null || user.getRole() != User.Role.OWNER;
     }
 
+    // [Skaraki] ChatGPT assisted. Lists all games. Finalized Nov. 30th
     public List<Videogame> listAll() { // ADDED POST-UML
         return new ArrayList<>(games);
     }
 
+    // [Skaraki] ChatGPT assisted. Accepts int id. Returns Optional (whether a game with such an id exists or not).
     public Optional<Videogame> optionalID(int vgID) { // ADDED POST-UML FOR MAINUI FUNCTIONALITY
         for (Videogame vg : games) {
             if (vg.getID() == vgID) return Optional.of(vg);

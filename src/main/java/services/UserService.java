@@ -57,10 +57,8 @@ public class UserService {
         return owner;
     }
 
-    /**
-     * Authenticates by username + password and returns the specific subtype
-     * (Customer or Owner) if successful. Also updates currentUser.
-     */
+    // [Skaraki] ChatGPT assisted. Accepts username and password strings, returns an Optional. Finalized Nov. 30th
+
     public Optional<User> login(String user, String pass) {
         User found = findByUsername(user);
         if (found == null) {
@@ -77,6 +75,7 @@ public class UserService {
         return Optional.of(found);
     }
 
+    // [Skaraki] ChatGPT assisted. Logs currentUser out by setting them to null. Finalized Nov. 30th
     public void logout(User user) {
         if (currentUser == null) {
             return;
@@ -93,12 +92,13 @@ public class UserService {
     }
 
     /**
-     * Changes password for the currently logged-in user.
+     * // [Skaraki] ChatGPT assisted. Accepts oldPass and newPass strings. Changes password for the currently logged-in user. Finalized Nov. 30th
      */
     public void changePass(String oldPass, String newPass) {
         System.out.println("[OK] Password changed for " + currentUser.getUsername());
     }
 
+    // [Skaraki] ChatGPT assisted.  Accepts int id, returns either the user associated with the ID or null. Finalized Nov. 30th.
     public User findUserByID(int id) {
         for (User u : users) {
             if (u.getID() == id) {
@@ -110,11 +110,12 @@ public class UserService {
         return null;
     }
 
+    // [Skaraki] List of users. Finalized Nov. 30th
     public List<User> getUsers() {
         return users;
     }
 
-    // HELPER (NOT IN UML)
+    // HELPER (NOT IN UML) [Skaraki] ChatGPT assisted. Accepts username, returns either the user associated with the username or null. Finalized Nov. 30th.
     private User findByUsername(String username) {
         for (User u : users) {
             if (u.getUsername().equalsIgnoreCase(username)) {
