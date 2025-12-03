@@ -1,7 +1,7 @@
 /**
  * Robust console UI for the Videogame Store.
  * Includes strong input validation and crash prevention.
- * Chat GPT assisted Kaloudis last edited 2/12 **/
+ * ChatGPT assisted Kaloudis last edited 2/12 **/
 
 
 package ui;
@@ -86,7 +86,7 @@ public class MainUI {
             }
         }
 
-        /** Save users on exit to persist latest state 
+        /* Save users on exit to persist latest state
         Chat GPT assisted Kaloudis last edited 2/12. */
         
         saveUsers();
@@ -215,7 +215,7 @@ public class MainUI {
                     }
                 }
                 User newUser = userService.register(u, p);
-                /** Persist immediately after registration
+                /* Persist immediately after registration
                 Chat GPT assisted Kaloudis last edited 2/12 **/
                 
                 
@@ -436,7 +436,6 @@ public class MainUI {
 
     /**
      * Removes a videogame by ID.
-     *
      * Chat GPT assisted Kaloudis last edited 3/12
      */
      
@@ -454,7 +453,6 @@ public class MainUI {
 
     /**
      * Updates the price of a videogame by ID.
-     *
      * Chat GPT assisted Kaloudis last edited 3/12
      */
      
@@ -468,7 +466,6 @@ public class MainUI {
 
     /**
      * Updates the stock of a videogame by ID.
-     *
      * Chat GPT assisted Kaloudis last edited 3/12
      */
     private void updateStock(Owner owner) {
@@ -484,7 +481,6 @@ public class MainUI {
 
     /**
      * Reads an integer from stdin with prompt and basic validation.
-     *
      * Chat GPT assisted Kaloudis last edited 3/12
      * @return parsed integer
      */
@@ -540,11 +536,7 @@ public class MainUI {
     /**
      * Saves all users returned by userService.getUsers() to the USER_FILE.
      * Format: username;password;role
-     *
      * This method overwrites the file completely on each save.
-     * 
-     * 
-     * 
      * Chat GPT assisted Kaloudis last edited 3/12
      */
     private void saveUsers() {
@@ -554,7 +546,7 @@ public class MainUI {
         try (BufferedWriter writer = Files.newBufferedWriter(p)) {
             for (User u : users) {
                 //storing plaintext passwords. For production, hash them instead.
-                String line = String.join(";", u.getUsername(), u.getPassword(), u.getRole());
+                String line = String.join(";", u.getUsername(), u.getPassword(), u.getRole().name());
                 writer.write(line);
                 writer.newLine();
             }
@@ -565,7 +557,6 @@ public class MainUI {
 
     /**
      * Loads users from USER_FILE and registers customers that do not already exist.
-     *
      * Chat GPT assisted Kaloudis last edited 3/12
      */
     private void loadUsers() {
@@ -606,8 +597,12 @@ public class MainUI {
                         System.out.println("[X] Failed to register loaded user '" + username + "': " + e.getMessage());
                     }
                 } else if ("OWNER".equalsIgnoreCase(role)) {
-                    // Owners are skipped by default. If you'd like to auto-create owners, implement it here.
-                    System.out.println("[!] Skipping owner account in users file: " + username + " (manual creation required).");
+                    try {
+                        userService.registerOwner(username, password);
+                        System.out.println("[OK] Loaded owner account: " + username);
+                    } catch (Exception e) {
+                        System.out.println("[X] Failed to load owner '" + username + "': " + e.getMessage());
+                    }
                 } else {
                     // Unknown role: attempt to register as customer to at least create an account
                     try {

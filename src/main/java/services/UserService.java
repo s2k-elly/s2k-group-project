@@ -17,6 +17,8 @@ public class UserService {
     private final List<User> users = new ArrayList<>();
     private User currentUser = null;
 
+  /*
+
     // =======================
     // CONSTRUCTOR WITH TEMPLATE CUSTOMER & OWNER (FOR TESTING AND PROOF OF FUNCTION)
     // =======================
@@ -29,11 +31,13 @@ public class UserService {
         users.add(customer);
     }
 
+   */
+
     // =======================
     // SERVICE METHODS
     // =======================
 
-    /**
+    /*
      * Register always creates a CUSTOMER (per your description).
      */
     public User register(String user, String pass) {
@@ -44,6 +48,13 @@ public class UserService {
         users.add(newCustomer);
 
         return newCustomer;
+    }
+
+    // [Skaraki] ChatGPT assisted. Registers Owners (used for save/load). Finalized Dec. 30th
+    public User registerOwner(String username, String password) {
+        Owner owner = new Owner(username, password);
+        users.add(owner);
+        return owner;
     }
 
     /**
